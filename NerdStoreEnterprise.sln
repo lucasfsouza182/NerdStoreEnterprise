@@ -11,10 +11,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{4A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{2CD7C952-15EC-47B9-8622-EA72F5591F42}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{E75BE433-1E28-46AC-8121-4E018D92878C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSE.Identity.API", "src\services\NSE.Identity.API\NSE.Identity.API.csproj", "{683860BE-756C-4C74-A943-C1F70BBCBD34}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{683860BE-756C-4C74-A943-C1F70BBCBD34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{683860BE-756C-4C74-A943-C1F70BBCBD34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{683860BE-756C-4C74-A943-C1F70BBCBD34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{683860BE-756C-4C74-A943-C1F70BBCBD34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -26,5 +36,7 @@ Global
 		{9D712BDD-57EA-4FE0-8794-4C0875539A6A} = {ABBE278C-4560-420D-82E0-3C20CD3972F5}
 		{4AFF5FBE-0F8C-4524-9DB6-398F5C38C956} = {ABBE278C-4560-420D-82E0-3C20CD3972F5}
 		{2CD7C952-15EC-47B9-8622-EA72F5591F42} = {ABBE278C-4560-420D-82E0-3C20CD3972F5}
+		{E75BE433-1E28-46AC-8121-4E018D92878C} = {4AFF5FBE-0F8C-4524-9DB6-398F5C38C956}
+		{683860BE-756C-4C74-A943-C1F70BBCBD34} = {E75BE433-1E28-46AC-8121-4E018D92878C}
 	EndGlobalSection
 EndGlobal
