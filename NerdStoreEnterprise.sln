@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.810.9
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{ABBE278C-4560-420D-82E0-3C20CD3972F5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Building Blocks", "Building Blocks", "{9D712BDD-57EA-4FE0-8794-4C0875539A6A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{4AFF5FBE-0F8C-4524-9DB6-398F5C38C956}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{2CD7C952-15EC-47B9-8622-EA72F5591F42}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A4294961-6651-45DB-9DCD-63D62636D5C9}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9D712BDD-57EA-4FE0-8794-4C0875539A6A} = {ABBE278C-4560-420D-82E0-3C20CD3972F5}
+		{4AFF5FBE-0F8C-4524-9DB6-398F5C38C956} = {ABBE278C-4560-420D-82E0-3C20CD3972F5}
+		{2CD7C952-15EC-47B9-8622-EA72F5591F42} = {ABBE278C-4560-420D-82E0-3C20CD3972F5}
+	EndGlobalSection
+EndGlobal
