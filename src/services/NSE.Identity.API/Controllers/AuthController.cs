@@ -13,9 +13,8 @@ using NSE.Identity.API.Models;
 
 namespace NSE.Identity.API.Controllers
 {
-    [ApiController]
     [Route("api/identity")]
-    public class AuthController : Controller
+    public class AuthController : MainController
     {
 
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -34,7 +33,7 @@ namespace NSE.Identity.API.Controllers
         [HttpPost("signin")]
         public async Task<ActionResult> SignIn(RegisterUserViewModel registerUser)
         {
-            if (!ModelState.IsValid) return BadRequest();
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var user = new IdentityUser
             {
@@ -46,30 +45,36 @@ namespace NSE.Identity.API.Controllers
             var result = await _userManager.CreateAsync(user, registerUser.Password);
             if (result.Succeeded)
             {
-                await _signInManager.SignInAsync(user, false);
-                return Ok(await GenerateJwt(registerUser.Email));
+                return CustomResponse(await GenerateJwt(registerUser.Email));
             }
 
-            return BadRequest();
+            foreach (var error in result.Errors)
+            {
+                AddError(error.Description);
+            }
+
+            return CustomResponse();
         }
 
         [HttpPost("login")]
         public async Task<ActionResult> Login(LoginUserViewModel loginUser)
         {
-            if (!ModelState.IsValid) return BadRequest();
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var result = await _signInManager.PasswordSignInAsync(loginUser.Email, loginUser.Password, false, true);
 
             if (result.Succeeded)
             {
-                return Ok(await GenerateJwt(loginUser.Email));
+                return CustomResponse(await GenerateJwt(loginUser.Email));
             }
             if (result.IsLockedOut)
             {
-                return BadRequest();
+                AddError("User temporarily blocked by invalid attempts");
+                return CustomResponse();
             }
 
-            return BadRequest();
+            AddError("Incorrect username or password");
+            return CustomResponse();
         }
 
 
