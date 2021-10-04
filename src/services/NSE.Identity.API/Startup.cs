@@ -37,6 +37,7 @@ namespace NSE.Identity.API
 
             services.AddDefaultIdentity<IdentityUser>()
                 .AddRoles<IdentityRole>()
+                //.AddErrorDescriber<IdentityPortugueseMessage>()  uncomment the line for identity errors in Portuguese
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
