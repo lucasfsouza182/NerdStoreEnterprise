@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace NSE.WeAPP.MVC
+namespace NSE.WebAPP.MVC
 {
     public class Program
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NSE.WeAPP.MVC.Models
+namespace NSE.WebAPP.MVC.Models
 {
     public class ErrorViewModel
     {
