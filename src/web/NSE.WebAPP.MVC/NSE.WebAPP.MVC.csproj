@@ -13,9 +13,11 @@
   <ItemGroup>
     <None Remove="Configurations\" />
     <None Remove="Views\Authentication\" />
+    <None Remove="Services\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Configuration\" />
     <Folder Include="Views\Auth\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 </Project>

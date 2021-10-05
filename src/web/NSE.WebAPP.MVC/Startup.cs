@@ -27,6 +27,8 @@ namespace NSE.WebAPP.MVC
             services.AddIdentityConfiguration();
 
             services.AddMvcConfiguration(Configuration);
+
+            services.RegisterServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
