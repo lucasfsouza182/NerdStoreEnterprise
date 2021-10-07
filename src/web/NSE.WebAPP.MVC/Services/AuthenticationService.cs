@@ -16,19 +16,24 @@ namespace NSE.WebAPP.MVC.Services
             _httpClient = httpClient;
         }
 
-        public async Task<string> Login(LoginUserViewModel loginUser)
+        public async Task<UserResponse> Login(LoginUserViewModel loginUser)
         {
             var loginContent = new StringContent(
                 JsonSerializer.Serialize(loginUser),
                 Encoding.UTF8,
                 "application/json");
 
-            var response = await _httpClient.PostAsync("/api/identity/login", loginContent);
+            var response = await _httpClient.PostAsync("https://localhost:5001/api/identity/login", loginContent);
 
-            return JsonSerializer.Deserialize<string>(await response.Content.ReadAsStringAsync());
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            return JsonSerializer.Deserialize<UserResponse>(await response.Content.ReadAsStringAsync(), options);
         }
 
-        public async Task<string> Signin(RegisterUserViewModel registerUserViewModel)
+        public async Task<UserResponse> Signin(RegisterUserViewModel registerUserViewModel)
         {
             var registerUserContent = new StringContent(
                 JsonSerializer.Serialize(registerUserViewModel),
@@ -37,7 +42,12 @@ namespace NSE.WebAPP.MVC.Services
 
             var response = await _httpClient.PostAsync("https://localhost:5001/api/identity/signin", registerUserContent);
 
-            return JsonSerializer.Deserialize<string>(await response.Content.ReadAsStringAsync());
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            return JsonSerializer.Deserialize<UserResponse>(await response.Content.ReadAsStringAsync(), options);
         }
     }
 }
