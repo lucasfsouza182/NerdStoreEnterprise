@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using NSE.WebAPP.MVC.Models;
 using NSE.WebAPP.MVC.Services;
+using IAuthenticationService = NSE.WebAPP.MVC.Services.IAuthenticationService;
 
 namespace NSE.WebAPP.MVC.Controllers
 {
@@ -32,6 +36,8 @@ namespace NSE.WebAPP.MVC.Controllers
 
             var response = await _authenticationService.Signin(registerUser);
 
+            await Login(response);
+
             if (false)
             {
                 return View(registerUser);
@@ -56,6 +62,8 @@ namespace NSE.WebAPP.MVC.Controllers
 
             var response = await _authenticationService.Login(loginUser);
 
+            await Login(response);
+
             if (false)
             {
                 return View(loginUser);
@@ -70,6 +78,32 @@ namespace NSE.WebAPP.MVC.Controllers
         public async Task<IActionResult> Logout()
         {
             return RedirectToAction("Index", "Home");
+        }
+
+        private async Task Login(UserResponse response)
+        {
+            var token = GetFormattedToken(response.AccessToken);
+            var claims = new List<Claim>();
+            claims.Add(new Claim("JWT", response.AccessToken));
+            claims.AddRange(token.Claims);
+
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            var authProperties = new AuthenticationProperties
+            {
+                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(60),
+                IsPersistent = true
+            };
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity),
+                authProperties);
+        }
+
+        private static JwtSecurityToken GetFormattedToken(string jwtToken)
+        {
+            return new JwtSecurityTokenHandler().ReadToken(jwtToken) as JwtSecurityToken;
         }
     }
 }

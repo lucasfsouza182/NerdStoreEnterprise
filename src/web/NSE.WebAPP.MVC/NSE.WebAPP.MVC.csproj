@@ -8,12 +8,14 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'NSE.WeAPP.MVC' " />
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.19" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.3" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Configurations\" />
     <None Remove="Views\Authentication\" />
     <None Remove="Services\" />
+    <None Remove="Microsoft.AspNetCore.Authentication.JwtBearer" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Configuration\" />
