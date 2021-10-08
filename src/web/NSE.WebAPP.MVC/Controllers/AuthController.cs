@@ -12,7 +12,7 @@ using IAuthenticationService = NSE.WebAPP.MVC.Services.IAuthenticationService;
 
 namespace NSE.WebAPP.MVC.Controllers
 {
-    public class AuthController : Controller
+    public class AuthController : MainController
     {
         private readonly IAuthenticationService _authenticationService;
 
@@ -38,7 +38,7 @@ namespace NSE.WebAPP.MVC.Controllers
 
             await Login(response);
 
-            if (false)
+            if (ResponseHasErrors(response.ResponseResult))
             {
                 return View(registerUser);
             }
@@ -62,13 +62,12 @@ namespace NSE.WebAPP.MVC.Controllers
 
             var response = await _authenticationService.Login(loginUser);
 
-            await Login(response);
-
-            if (false)
+            if (ResponseHasErrors(response.ResponseResult))
             {
                 return View(loginUser);
             }
 
+            await Login(response);
 
             return RedirectToAction("Index", "Home");
         }

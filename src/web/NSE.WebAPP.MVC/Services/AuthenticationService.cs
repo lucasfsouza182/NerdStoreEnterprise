@@ -7,7 +7,7 @@ using NSE.WebAPP.MVC.Models;
 
 namespace NSE.WebAPP.MVC.Services
 {
-    public class AuthenticationService : IAuthenticationService
+    public class AuthenticationService : Service, IAuthenticationService
     {
         private readonly HttpClient _httpClient;
 
@@ -30,6 +30,14 @@ namespace NSE.WebAPP.MVC.Services
                 PropertyNameCaseInsensitive = true
             };
 
+            if (!HandleResponseErrors(response))
+            {
+                return new UserResponse
+                {
+                    ResponseResult = JsonSerializer.Deserialize<ResponseResult>(await response.Content.ReadAsStringAsync(), options)
+                };
+            }
+
             return JsonSerializer.Deserialize<UserResponse>(await response.Content.ReadAsStringAsync(), options);
         }
 
@@ -46,6 +54,14 @@ namespace NSE.WebAPP.MVC.Services
             {
                 PropertyNameCaseInsensitive = true
             };
+
+            if (!HandleResponseErrors(response))
+            {
+                return new UserResponse
+                {
+                    ResponseResult = JsonSerializer.Deserialize<ResponseResult>(await response.Content.ReadAsStringAsync(), options)
+                };
+            }
 
             return JsonSerializer.Deserialize<UserResponse>(await response.Content.ReadAsStringAsync(), options);
         }
