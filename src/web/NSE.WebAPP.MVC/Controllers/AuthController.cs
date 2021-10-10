@@ -49,15 +49,17 @@ namespace NSE.WebAPP.MVC.Controllers
 
         [HttpGet]
         [Route("login")]
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> LoginAsync(LoginUserViewModel loginUser)
+        public async Task<IActionResult> LoginAsync(LoginUserViewModel loginUser, string returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             if (!ModelState.IsValid) return View(loginUser);
 
             var response = await _authenticationService.Login(loginUser);
@@ -69,7 +71,9 @@ namespace NSE.WebAPP.MVC.Controllers
 
             await Login(response);
 
-            return RedirectToAction("Index", "Home");
+            if (string.IsNullOrEmpty(returnUrl)) return RedirectToAction("Index", "Home");
+
+            return LocalRedirect(returnUrl);
         }
 
         [HttpGet]

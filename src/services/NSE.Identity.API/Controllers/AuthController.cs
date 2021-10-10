@@ -34,8 +34,6 @@ namespace NSE.Identity.API.Controllers
         [HttpPost("signin")]
         public async Task<ActionResult> SignIn(RegisterUserViewModel registerUser)
         {
-            return new StatusCodeResult(401);
-
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var user = new IdentityUser
