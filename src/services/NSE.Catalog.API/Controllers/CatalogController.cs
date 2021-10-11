@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NSE.Catalog.API.Models;
+using static NSE.WebAPI.Core.Auth.CustomAuthorization;
 
 namespace NSE.Catalog.API.Controllers
 {
+    [ApiController]
+    [Authorize]
     public class CatalogController
     {
         private readonly IProductRepository _productRepository;
@@ -15,12 +19,14 @@ namespace NSE.Catalog.API.Controllers
             _productRepository = productRepository;
         }
 
+        [AllowAnonymous]
         [HttpGet("catalogo/produtos")]
         public async Task<IEnumerable<Product>> Index()
         {
             return await _productRepository.GetAll();
         }
 
+        [ClaimsAuthorize("Catalogo", "Ler")]
         [HttpGet("catalogo/produtos/{id}")]
         public async Task<Product> ProductDetail(Guid id)
         {
