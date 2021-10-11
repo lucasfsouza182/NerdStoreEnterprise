@@ -20,6 +20,7 @@
     <None Remove="Data\" />
     <None Remove="Data\Mappings\" />
     <None Remove="Data\Repository\" />
+    <None Remove="Configuration\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
@@ -27,6 +28,7 @@
     <Folder Include="Data\" />
     <Folder Include="Data\Mappings\" />
     <Folder Include="Data\Repository\" />
+    <Folder Include="Configuration\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\building blocks\NSE.Core\NSE.Core.csproj">
