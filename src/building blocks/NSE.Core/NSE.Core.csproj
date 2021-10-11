@@ -6,8 +6,10 @@
 
   <ItemGroup>
     <None Remove="DomainObjects\" />
+    <None Remove="Data\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DomainObjects\" />
+    <Folder Include="Data\" />
   </ItemGroup>
 </Project>
