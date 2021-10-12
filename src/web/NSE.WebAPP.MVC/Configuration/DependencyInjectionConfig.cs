@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using NSE.WebAPP.MVC.Extensions;
 using NSE.WebAPP.MVC.Services;
+using NSE.WebAPP.MVC.Services.Handlers;
 
 namespace NSE.WebAPP.MVC.Configuration
 {
@@ -9,8 +10,11 @@ namespace NSE.WebAPP.MVC.Configuration
     {
         public static void RegisterServices(this IServiceCollection services)
         {
+            services.AddTransient<HttpClientAuthorizationDelegatingHandler>();
+
             services.AddHttpClient<IAuthenticationService, AuthenticationService>();
-            services.AddHttpClient<ICatalogService, CatalogService>();
+            services.AddHttpClient<ICatalogService, CatalogService>()
+                .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IUser, AspNetUser>();

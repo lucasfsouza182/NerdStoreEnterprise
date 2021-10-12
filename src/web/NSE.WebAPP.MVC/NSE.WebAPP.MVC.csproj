@@ -20,6 +20,7 @@
     <None Remove="Views\Shared\Components\" />
     <None Remove="Views\Shared\Components\Summary\" />
     <None Remove="Views\Catalog\" />
+    <None Remove="Services\Handlers\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Configuration\" />
@@ -29,5 +30,6 @@
     <Folder Include="Views\Shared\Components\" />
     <Folder Include="Views\Shared\Components\Summary\" />
     <Folder Include="Views\Catalog\" />
+    <Folder Include="Services\Handlers\" />
   </ItemGroup>
 </Project>
