@@ -16,7 +16,7 @@ namespace NSE.WebAPP.MVC.Services
                 "application/json");
         }
 
-        protected async Task<T> DeserializeResponseOnject<T>(HttpResponseMessage responseMessage)
+        protected async Task<T> DeserializeResponseObject<T>(HttpResponseMessage responseMessage)
         {
             var options = new JsonSerializerOptions
             {

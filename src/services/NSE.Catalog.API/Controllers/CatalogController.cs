@@ -20,14 +20,14 @@ namespace NSE.Catalog.API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("catalogo/produtos")]
+        [HttpGet("catalog/products")]
         public async Task<IEnumerable<Product>> Index()
         {
             return await _productRepository.GetAll();
         }
 
-        [ClaimsAuthorize("Catalogo", "Ler")]
-        [HttpGet("catalogo/produtos/{id}")]
+        [ClaimsAuthorize("Catalog", "Read")]
+        [HttpGet("catalog/products/{id}")]
         public async Task<Product> ProductDetail(Guid id)
         {
             return await _productRepository.GetById(id);
