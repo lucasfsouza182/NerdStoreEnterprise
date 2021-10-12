@@ -19,12 +19,15 @@ namespace NSE.WebAPP.MVC.Configuration
             services.AddHttpClient<ICatalogService, CatalogService>()
                 .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
                 //.AddTransientHttpErrorPolicy(p => p.WaitAndRetryAsync(3, _ => TimeSpan.FromMilliseconds(600)) )
-                .AddPolicyHandler(PollyExtensions.WaitAndTry());
+                .AddPolicyHandler(PollyExtensions.WaitAndTry())
+                .AddTransientHttpErrorPolicy(
+                    p => p.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
             
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IUser, AspNetUser>();
 
+            #region Refit
             //services.AddHttpClient("Refit",
             //        options =>
             //        {
@@ -32,6 +35,7 @@ namespace NSE.WebAPP.MVC.Configuration
             //        })
             //    .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
             //    .AddTypedClient(Refit.RestService.For<ICatalogServiceRefit>);
+            #endregion
 
         }
     }

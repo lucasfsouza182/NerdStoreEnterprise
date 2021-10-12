@@ -11,15 +11,17 @@ namespace NSE.WebAPP.MVC.Controllers
 {
     public class HomeController : Controller
     {
-
-        public IActionResult Index()
+        [Route("system-unavailable")]
+        public IActionResult SistemaIndisponivel()
         {
-            return View();
-        }
+            var modelError = new ErrorViewModel
+            {
+                Message = "The system is temporarily unavailable, this can occur in times of user overload.",
+                Title = "System unavailable.",
+                ErrorCode = 500
+            };
 
-        public IActionResult Privacy()
-        {
-            return View();
+            return View("Error", modelError);
         }
 
         [Route("erro/{id:length(3,3)}")]
