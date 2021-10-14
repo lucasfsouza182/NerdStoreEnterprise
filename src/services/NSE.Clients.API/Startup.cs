@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using MediatR;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,6 +33,10 @@ namespace NSE.Clients.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApiConfiguration(Configuration);
+
+            services.AddMediatR(typeof(Startup));
+
+            services.RegisterServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
