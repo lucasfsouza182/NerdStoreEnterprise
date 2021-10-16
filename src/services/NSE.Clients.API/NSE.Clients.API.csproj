@@ -24,6 +24,7 @@
     <None Remove="Application\Commands\" />
     <None Remove="Application\Events\" />
     <None Remove="Application\Queries\" />
+    <None Remove="Data\Repository\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
@@ -35,6 +36,7 @@
     <Folder Include="Application\Commands\" />
     <Folder Include="Application\Events\" />
     <Folder Include="Application\Queries\" />
+    <Folder Include="Data\Repository\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\building blocks\NSE.Core\NSE.Core.csproj">
