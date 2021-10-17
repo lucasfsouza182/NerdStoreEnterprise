@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 
-namespace NSE.Clients.API.Application.Events
+namespace NSE.Customers.API.Application.Events
 {
     public class ClientEventHandler : INotificationHandler<ClientCreatedEvent>
     {

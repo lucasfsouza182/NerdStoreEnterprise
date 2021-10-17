@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using NSE.Clients.API.Data;
+using NSE.Customers.API.Data;
 
-namespace NSE.Clients.API.Migrations
+namespace NSE.Customers.API.Migrations
 {
     [DbContext(typeof(ClientsContext))]
-    partial class ClientsContextModelSnapshot : ModelSnapshot
+    [Migration("20211013183338_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,7 +21,7 @@ namespace NSE.Clients.API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("NSE.Clients.API.Models.Address", b =>
+            modelBuilder.Entity("NSE.Customers.API.Models.Address", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -63,7 +65,7 @@ namespace NSE.Clients.API.Migrations
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("NSE.Clients.API.Models.Client", b =>
+            modelBuilder.Entity("NSE.Customers.API.Models.Client", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -81,15 +83,15 @@ namespace NSE.Clients.API.Migrations
                     b.ToTable("Clients");
                 });
 
-            modelBuilder.Entity("NSE.Clients.API.Models.Address", b =>
+            modelBuilder.Entity("NSE.Customers.API.Models.Address", b =>
                 {
-                    b.HasOne("NSE.Clients.API.Models.Client", "Client")
+                    b.HasOne("NSE.Customers.API.Models.Client", "Client")
                         .WithOne("Address")
                         .HasForeignKey("NSE.Clients.API.Models.Address", "ClientId")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("NSE.Clients.API.Models.Client", b =>
+            modelBuilder.Entity("NSE.Customers.API.Models.Client", b =>
                 {
                     b.OwnsOne("NSE.Core.DomainObjects.Cpf", "Cpf", b1 =>
                         {

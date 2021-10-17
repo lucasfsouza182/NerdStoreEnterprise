@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using NSE.Core.Data;
 
-namespace NSE.Clients.API.Models
+namespace NSE.Customers.API.Models
 {
     public interface IClientRepository : IRepository<Client>
     {

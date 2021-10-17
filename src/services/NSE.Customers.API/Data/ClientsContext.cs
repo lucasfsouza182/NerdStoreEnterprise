@@ -3,13 +3,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
-using NSE.Clients.API.Models;
+using NSE.Customers.API.Models;
 using NSE.Core.Data;
 using NSE.Core.DomainObjects;
 using NSE.Core.Mediator;
 using NSE.Core.Messages;
 
-namespace NSE.Clients.API.Data
+namespace NSE.Customers.API.Data
 {
     public class ClientsContext : DbContext, IUnitOfWork
     {

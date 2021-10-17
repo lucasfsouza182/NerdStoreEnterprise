@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using NSE.Clients.API.Application.Commands;
+using NSE.Customers.API.Application.Commands;
 using NSE.Core.Mediator;
 using NSE.WebAPI.Core.Controllers;
 
-namespace NSE.Clients.API.Controllers
+namespace NSE.Customers.API.Controllers
 {
     public class ClientsController : MainController
     {

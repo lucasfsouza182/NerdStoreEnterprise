@@ -2,11 +2,11 @@
 using System.Threading.Tasks;
 using FluentValidation.Results;
 using MediatR;
-using NSE.Clients.API.Application.Events;
-using NSE.Clients.API.Models;
+using NSE.Customers.API.Application.Events;
+using NSE.Customers.API.Models;
 using NSE.Core.Messages;
 
-namespace NSE.Clients.API.Application.Commands
+namespace NSE.Customers.API.Application.Commands
 {
     public class ClientCommandHandler : CommandHandler,
             IRequestHandler<CreateClientCommand, ValidationResult>

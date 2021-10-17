@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using NSE.Clients.API.Models;
+using NSE.Customers.API.Models;
 using NSE.Core.Data;
 
-namespace NSE.Clients.API.Data.Repository
+namespace NSE.Customers.API.Data.Repository
 {
     public class ClientRepository : IClientRepository
     {

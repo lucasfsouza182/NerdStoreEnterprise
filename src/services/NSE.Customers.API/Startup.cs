@@ -5,10 +5,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-using NSE.Clients.API.Configuration;
+using NSE.Customers.API.Configuration;
 using NSE.WebAPI.Core.Auth;
 
-namespace NSE.Clients.API
+namespace NSE.Customers.API
 {
     public class Startup
     {

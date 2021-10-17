@@ -2,7 +2,7 @@
 using FluentValidation;
 using NSE.Core.Messages;
 
-namespace NSE.Clients.API.Application.Commands
+namespace NSE.Customers.API.Application.Commands
 {
     public class CreateClientCommand : Command
     {

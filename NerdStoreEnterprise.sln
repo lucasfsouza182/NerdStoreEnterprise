@@ -31,9 +31,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{14
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSE.WebAPI.Core", "src\building blocks\NSE.WebAPI.Core\NSE.WebAPI.Core.csproj", "{49F6BBAE-DC79-4376-81CC-37F1139A1040}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{F679F267-054B-4389-97C1-AA293FCEE650}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Customers", "Customers", "{F679F267-054B-4389-97C1-AA293FCEE650}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSE.Clients.API", "src\services\NSE.Clients.API\NSE.Clients.API.csproj", "{5305AF37-4CDF-428D-8FA6-9A52791A1C89}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSE.Customers.API", "src\services\NSE.Clients.API\NSE.Customers.API.csproj", "{5305AF37-4CDF-428D-8FA6-9A52791A1C89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

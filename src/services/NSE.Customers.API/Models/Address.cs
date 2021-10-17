@@ -1,7 +1,7 @@
 ﻿using System;
 using NSE.Core.DomainObjects;
 
-namespace NSE.Clients.API.Models
+namespace NSE.Customers.API.Models
 {
     public class Address : Entity
     {

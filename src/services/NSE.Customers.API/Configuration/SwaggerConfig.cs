@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-namespace NSE.Clients.API.Configuration
+namespace NSE.Customers.API.Configuration
 {
     public static class SwaggerConfig
     {
@@ -13,7 +13,7 @@ namespace NSE.Clients.API.Configuration
             {
                 c.SwaggerDoc("v1", new OpenApiInfo()
                 {
-                    Title = "NerdStore Enterprise Catalog API",
+                    Title = "NerdStore Enterprise Customers API",
                     Description = "Esta API faz parte do curso ASP.NET Core Enterprise Applications.",
                     Contact = new OpenApiContact() { Name = "Lucas Ferreira", Email = "lucasfsouza182@gmail.com" },
                     License = new OpenApiLicense() { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
