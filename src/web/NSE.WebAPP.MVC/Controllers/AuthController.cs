@@ -36,13 +36,12 @@ namespace NSE.WebAPP.MVC.Controllers
 
             var response = await _authenticationService.Signin(registerUser);
 
-            await Login(response);
-
             if (ResponseHasErrors(response.ResponseResult))
             {
                 return View(registerUser);
             }
 
+            await Login(response);
 
             return RedirectToAction("Index", "Home");
         }
