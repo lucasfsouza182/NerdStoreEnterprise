@@ -29,6 +29,7 @@ namespace NSE.Clients.API.Application.Commands
             if(existedClient != null)
             {
                 AddError("This Cpf is already in use.");
+                return ValidationResult;
             }
 
             _clientRepository.Add(client);
