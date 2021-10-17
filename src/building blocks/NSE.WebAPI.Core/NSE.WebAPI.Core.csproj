@@ -10,8 +10,10 @@
 
   <ItemGroup>
     <None Remove="Auth\" />
+    <None Remove="Controller\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Auth\" />
+    <Folder Include="Controller\" />
   </ItemGroup>
 </Project>
