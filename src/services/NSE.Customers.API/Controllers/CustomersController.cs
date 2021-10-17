@@ -7,20 +7,20 @@ using NSE.WebAPI.Core.Controllers;
 
 namespace NSE.Customers.API.Controllers
 {
-    public class ClientsController : MainController
+    public class CustomersController : MainController
     {
         private readonly IMediatorHandler _mediatorHandler;
 
-        public ClientsController(IMediatorHandler mediatorHandler)
+        public CustomersController(IMediatorHandler mediatorHandler)
         {
             _mediatorHandler = mediatorHandler;
         }
 
-        [HttpGet("clients")]
+        [HttpGet("customers")]
         public async Task<IActionResult> Index()
         {
             var result = await _mediatorHandler.SendCommand(
-                new CreateClientCommand(Guid.NewGuid(), "Lucas", "teste@teste.com", "30314299076"));
+                new CreateCustomerCommand(Guid.NewGuid(), "Lucas", "teste@teste.com", "30314299076"));
 
             return CustomResponse(result);
         }

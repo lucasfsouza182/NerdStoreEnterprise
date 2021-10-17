@@ -13,7 +13,7 @@ namespace NSE.Customers.API.Configuration
     {
         public static void AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<ClientsContext>(options =>
+            services.AddDbContext<CustomersContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllers();

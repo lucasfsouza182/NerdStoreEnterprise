@@ -15,11 +15,11 @@ namespace NSE.Customers.API.Configuration
         public static void RegisterServices(this IServiceCollection services)
         {
             services.AddScoped<IMediatorHandler, MediatorHandler>();
-            services.AddScoped<IRequestHandler<CreateClientCommand, ValidationResult>, ClientCommandHandler>();
-            services.AddScoped<INotificationHandler<ClientCreatedEvent>, ClientEventHandler>();
+            services.AddScoped<IRequestHandler<CreateCustomerCommand, ValidationResult>, CustomerCommandHandler>();
+            services.AddScoped<INotificationHandler<CustomerCreatedEvent>, CustomerEventHandler>();
 
-            services.AddScoped<IClientRepository, ClientRepository>();
-            services.AddScoped<ClientsContext>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<CustomersContext>();
         }
     }
 }

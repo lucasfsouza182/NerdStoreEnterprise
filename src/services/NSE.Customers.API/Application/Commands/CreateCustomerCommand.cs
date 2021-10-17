@@ -4,14 +4,14 @@ using NSE.Core.Messages;
 
 namespace NSE.Customers.API.Application.Commands
 {
-    public class CreateClientCommand : Command
+    public class CreateCustomerCommand : Command
     {
         public Guid Id { get; private set; }
         public string Name { get; private set; }
         public string Email { get; private set; }
         public string Cpf { get; private set; }
 
-        public CreateClientCommand(Guid id, string name, string email, string cpf)
+        public CreateCustomerCommand(Guid id, string name, string email, string cpf)
         {
             AggregateId = id;
             Id = id;
@@ -22,14 +22,14 @@ namespace NSE.Customers.API.Application.Commands
 
         public override bool IsValid()
         {
-            ValidationResult = new CreateClientValidation().Validate(this);
+            ValidationResult = new CreateCustomerValidation().Validate(this);
             return ValidationResult.IsValid;
         }
     }
 
-    public class CreateClientValidation : AbstractValidator<CreateClientCommand>
+    public class CreateCustomerValidation : AbstractValidator<CreateCustomerCommand>
     {
-        public CreateClientValidation()
+        public CreateCustomerValidation()
         {
             RuleFor(c => c.Id)
                 .NotEqual(Guid.Empty)

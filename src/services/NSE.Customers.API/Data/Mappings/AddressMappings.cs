@@ -38,7 +38,7 @@ namespace NSE.Customers.API.Data.Mappings
                 .IsRequired()
                 .HasColumnType("varchar(50)");
 
-            builder.ToTable("Addresses");
+            builder.ToTable("Adresses");
         }
     }
 }

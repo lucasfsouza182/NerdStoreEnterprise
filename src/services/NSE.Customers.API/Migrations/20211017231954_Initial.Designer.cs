@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NSE.Customers.API.Data;
 
 namespace NSE.Customers.API.Migrations
 {
-    [DbContext(typeof(ClientsContext))]
-    partial class ClientsContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(CustomersContext))]
+    [Migration("20211017231954_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,7 +21,7 @@ namespace NSE.Customers.API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("NSE.Clients.API.Models.Address", b =>
+            modelBuilder.Entity("NSE.Customers.API.Models.Address", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,7 +34,7 @@ namespace NSE.Customers.API.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 
-                    b.Property<Guid>("ClientId")
+                    b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Neighborhood")
@@ -57,13 +59,13 @@ namespace NSE.Customers.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClientId")
+                    b.HasIndex("CustomerId")
                         .IsUnique();
 
-                    b.ToTable("Addresses");
+                    b.ToTable("Adresses");
                 });
 
-            modelBuilder.Entity("NSE.Clients.API.Models.Client", b =>
+            modelBuilder.Entity("NSE.Customers.API.Models.Customer", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -78,22 +80,22 @@ namespace NSE.Customers.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Clients");
+                    b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("NSE.Clients.API.Models.Address", b =>
+            modelBuilder.Entity("NSE.Customers.API.Models.Address", b =>
                 {
-                    b.HasOne("NSE.Clients.API.Models.Client", "Client")
+                    b.HasOne("NSE.Customers.API.Models.Customer", "Customer")
                         .WithOne("Address")
-                        .HasForeignKey("NSE.Clients.API.Models.Address", "ClientId")
+                        .HasForeignKey("NSE.Customers.API.Models.Address", "CustomerId")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("NSE.Clients.API.Models.Client", b =>
+            modelBuilder.Entity("NSE.Customers.API.Models.Customer", b =>
                 {
                     b.OwnsOne("NSE.Core.DomainObjects.Cpf", "Cpf", b1 =>
                         {
-                            b1.Property<Guid>("ClientId")
+                            b1.Property<Guid>("CustomerId")
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("Number")
@@ -102,17 +104,17 @@ namespace NSE.Customers.API.Migrations
                                 .HasColumnType("varchar(11)")
                                 .HasMaxLength(11);
 
-                            b1.HasKey("ClientId");
+                            b1.HasKey("CustomerId");
 
-                            b1.ToTable("Clients");
+                            b1.ToTable("Customers");
 
                             b1.WithOwner()
-                                .HasForeignKey("ClientId");
+                                .HasForeignKey("CustomerId");
                         });
 
                     b.OwnsOne("NSE.Core.DomainObjects.Email", "Email", b1 =>
                         {
-                            b1.Property<Guid>("ClientId")
+                            b1.Property<Guid>("CustomerId")
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("Address")
@@ -120,12 +122,12 @@ namespace NSE.Customers.API.Migrations
                                 .HasColumnName("Email")
                                 .HasColumnType("varchar(254)");
 
-                            b1.HasKey("ClientId");
+                            b1.HasKey("CustomerId");
 
-                            b1.ToTable("Clients");
+                            b1.ToTable("Customers");
 
                             b1.WithOwner()
-                                .HasForeignKey("ClientId");
+                                .HasForeignKey("CustomerId");
                         });
                 });
 #pragma warning restore 612, 618

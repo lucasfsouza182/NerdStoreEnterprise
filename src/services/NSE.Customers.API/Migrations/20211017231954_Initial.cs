@@ -8,7 +8,7 @@ namespace NSE.Customers.API.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Clients",
+                name: "Customers",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -19,11 +19,11 @@ namespace NSE.Customers.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Clients", x => x.Id);
+                    table.PrimaryKey("PK_Customers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Addresses",
+                name: "Adresses",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -34,33 +34,33 @@ namespace NSE.Customers.API.Migrations
                     PostalCode = table.Column<string>(type: "varchar(20)", nullable: false),
                     City = table.Column<string>(type: "varchar(100)", nullable: false),
                     State = table.Column<string>(type: "varchar(50)", nullable: false),
-                    ClientId = table.Column<Guid>(nullable: false)
+                    CustomerId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Addresses", x => x.Id);
+                    table.PrimaryKey("PK_Adresses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Addresses_Clients_ClientId",
-                        column: x => x.ClientId,
-                        principalTable: "Clients",
+                        name: "FK_Adresses_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Addresses_ClientId",
-                table: "Addresses",
-                column: "ClientId",
+                name: "IX_Adresses_CustomerId",
+                table: "Adresses",
+                column: "CustomerId",
                 unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Addresses");
+                name: "Adresses");
 
             migrationBuilder.DropTable(
-                name: "Clients");
+                name: "Customers");
         }
     }
 }

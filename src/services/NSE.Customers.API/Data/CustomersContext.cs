@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
@@ -11,11 +10,11 @@ using NSE.Core.Messages;
 
 namespace NSE.Customers.API.Data
 {
-    public class ClientsContext : DbContext, IUnitOfWork
+    public class CustomersContext : DbContext, IUnitOfWork
     {
         private readonly IMediatorHandler _mediatorHandler;
 
-        public ClientsContext(DbContextOptions<ClientsContext> options,
+        public CustomersContext(DbContextOptions<CustomersContext> options,
             IMediatorHandler mediatorHandler) : base(options)
         {
             _mediatorHandler = mediatorHandler;
@@ -23,8 +22,8 @@ namespace NSE.Customers.API.Data
             ChangeTracker.AutoDetectChangesEnabled = false;
         }
 
-        public DbSet<Client> Clients { get; set; }
-        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Address> Adresses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -38,7 +37,7 @@ namespace NSE.Customers.API.Data
             foreach (var relationship in modelBuilder.Model.GetEntityTypes()
                 .SelectMany(e => e.GetForeignKeys())) relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
 
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ClientsContext).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(CustomersContext).Assembly);
         }
 
         public async Task<bool> Commit()

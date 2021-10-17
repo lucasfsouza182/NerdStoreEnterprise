@@ -12,12 +12,12 @@ namespace NSE.Customers.API.Models
         public string PostalCode { get; private set; }
         public string City { get; private set; }
         public string State { get; private set; }
-        public Guid ClientId { get; private set; }
+        public Guid CustomerId { get; private set; }
 
         // EF Relation
-        public Client Client { get; protected set; }
+        public Customer Customer { get; protected set; }
 
-        public Address(string street, string number, string addressDetail, string neighborhood, string postalCode, string city, string state, Guid clientId)
+        public Address(string street, string number, string addressDetail, string neighborhood, string postalCode, string city, string state, Guid customerId)
         {
             Street = street;
             Number = number;
@@ -26,7 +26,7 @@ namespace NSE.Customers.API.Models
             PostalCode = postalCode;
             City = city;
             State = state;
-            ClientId = clientId;
+            CustomerId = customerId;
         }
     }
 }

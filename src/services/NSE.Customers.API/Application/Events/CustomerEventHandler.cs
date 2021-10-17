@@ -5,13 +5,13 @@ using MediatR;
 
 namespace NSE.Customers.API.Application.Events
 {
-    public class ClientEventHandler : INotificationHandler<ClientCreatedEvent>
+    public class CustomerEventHandler : INotificationHandler<CustomerCreatedEvent>
     {
-        public ClientEventHandler()
+        public CustomerEventHandler()
         {
         }
 
-        public Task Handle(ClientCreatedEvent notification, CancellationToken cancellationToken)
+        public Task Handle(CustomerCreatedEvent notification, CancellationToken cancellationToken)
         {
             // send confirmation event
             return Task.CompletedTask;
