@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 using NSE.Clients.API.Configuration;
+using NSE.WebAPI.Core.Auth;
 
 namespace NSE.Clients.API
 {
@@ -34,6 +35,10 @@ namespace NSE.Clients.API
         {
             services.AddApiConfiguration(Configuration);
 
+            services.AddJwtConfiguration(Configuration);
+
+            services.AddSwaggerConfiguration();
+
             services.AddMediatR(typeof(Startup));
 
             services.RegisterServices();
@@ -42,6 +47,7 @@ namespace NSE.Clients.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSwaggerConfiguration();
             app.UseApiConfiguration(env);
         }
     }
