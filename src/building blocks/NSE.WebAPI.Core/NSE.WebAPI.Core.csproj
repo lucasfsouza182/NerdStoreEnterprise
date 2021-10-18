@@ -6,12 +6,15 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.3" />
+    <PackageReference Include="FluentValidation" Version="8.6.2" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Auth\" />
+    <None Remove="Controller\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Auth\" />
+    <Folder Include="Controller\" />
   </ItemGroup>
 </Project>

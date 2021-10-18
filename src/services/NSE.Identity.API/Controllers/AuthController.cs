@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using NSE.Identity.API.Models;
 using NSE.WebAPI.Core.Auth;
+using NSE.WebAPI.Core.Controllers;
 
 namespace NSE.Identity.API.Controllers
 {

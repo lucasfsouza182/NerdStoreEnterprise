@@ -5,11 +5,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="8.6.2" />
+    <PackageReference Include="mediatr" Version="8.0.1" />
+  </ItemGroup>
+
+
+  <ItemGroup>
     <None Remove="DomainObjects\" />
     <None Remove="Data\" />
+    <None Remove="Utils\" />
+    <None Remove="Messages\" />
+    <None Remove="Mediator\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DomainObjects\" />
     <Folder Include="Data\" />
+    <Folder Include="Utils\" />
+    <Folder Include="Messages\" />
+    <Folder Include="Mediator\" />
   </ItemGroup>
 </Project>
