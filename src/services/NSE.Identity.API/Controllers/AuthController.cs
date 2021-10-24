@@ -9,9 +9,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using NSE.Core.Messages.Integration;
 using NSE.Identity.API.Models;
 using NSE.WebAPI.Core.Auth;
 using NSE.WebAPI.Core.Controllers;
+using EasyNetQ;
 
 namespace NSE.Identity.API.Controllers
 {
@@ -23,13 +25,17 @@ namespace NSE.Identity.API.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppSettings _appSettings;
 
+        private IBus _bus;
+
         public AuthController(SignInManager<IdentityUser> signInManager,
                               UserManager<IdentityUser> userManager,
-                              IOptions<AppSettings> appSettings)
+                              IOptions<AppSettings> appSettings,
+                              IBus bus)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _appSettings = appSettings.Value;
+            _bus = bus;
         }
 
         [HttpPost("signin")]
@@ -47,6 +53,8 @@ namespace NSE.Identity.API.Controllers
             var result = await _userManager.CreateAsync(user, registerUser.Password);
             if (result.Succeeded)
             {
+                var success = await CreateCustomer(registerUser);
+
                 return CustomResponse(await GenerateJwt(registerUser.Email));
             }
 
@@ -79,6 +87,19 @@ namespace NSE.Identity.API.Controllers
             return CustomResponse();
         }
 
+
+        private async Task<ResponseMessage> CreateCustomer(RegisterUserViewModel registerUser)
+        {
+            var user = await _userManager.FindByEmailAsync(registerUser.Email);
+            var userCreated = new UserCreatedIntegrationEvent(
+                Guid.Parse(user.Id), registerUser.Name, registerUser.Email, registerUser.Cpf);
+
+            _bus = RabbitHutch.CreateBus("host=localhost:5672");
+
+            var success = await _bus.RequestAsync<UserCreatedIntegrationEvent, ResponseMessage>(userCreated);
+
+            return success;
+        }
 
         private async Task<LoginResponseViewModel> GenerateJwt(string email)
         {

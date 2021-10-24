@@ -6,8 +6,13 @@ namespace NSE.Identity.API.Models
     public class RegisterUserViewModel
     {
         [Required(ErrorMessage = "The {0} field is required")]
-        [EmailAddress(ErrorMessage = "Field {0} is in invalid format")]
+        public string Name { get; set; }
 
+        [Required(ErrorMessage = "The {0} field is required")]
+        public string Cpf { get; set; }
+
+        [Required(ErrorMessage = "The {0} field is required")]
+        [EmailAddress(ErrorMessage = "Field {0} is in invalid format")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "The {0} field is required")]
