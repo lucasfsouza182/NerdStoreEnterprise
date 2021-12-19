@@ -27,7 +27,22 @@ namespace NSE.Customers.API.Services
             _bus.RespondAsync<UserCreatedIntegrationEvent, ResponseMessage>(async request =>
                 await CreateCustomer(request));
 
+            _bus.AdvancedBus.Connected += OnConnect;
+
             return Task.CompletedTask;
+        }
+
+        private void OnConnect(object s, EventArgs e)
+        {
+            SetResponder();
+        }
+
+        private void SetResponder()
+        {
+            _bus.RespondAsync<UserCreatedIntegrationEvent, ResponseMessage>(async request =>
+               await CreateCustomer(request));
+
+            _bus.AdvancedBus.Connected += OnConnect;
         }
 
         private async Task<ResponseMessage> CreateCustomer(UserCreatedIntegrationEvent message)
