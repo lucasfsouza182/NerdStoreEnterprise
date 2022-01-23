@@ -38,5 +38,6 @@
     <ProjectReference Include="..\..\building blocks\NSE.Core\NSE.Core.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+    <ProjectReference Include="..\..\building blocks\NSE.WebAPI.Core\NSE.WebAPI.Core.csproj" />
   </ItemGroup>
 </Project>

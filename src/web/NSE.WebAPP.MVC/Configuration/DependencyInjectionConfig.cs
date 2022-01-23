@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NSE.WebAPI.Core.User;
 using NSE.WebAPP.MVC.Extensions;
 using NSE.WebAPP.MVC.Services;
 using NSE.WebAPP.MVC.Services.Handlers;
@@ -28,7 +29,7 @@ namespace NSE.WebAPP.MVC.Configuration
             
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<IUser, AspNetUser>();
+            services.AddScoped<IAspNetUser, AspNetUser>();
 
             #region Refit
             //services.AddHttpClient("Refit",
