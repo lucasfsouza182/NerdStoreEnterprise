@@ -6,6 +6,7 @@ using NSE.Cart.API.Model;
 using NSE.WebAPI.Core.Controllers;
 using NSE.WebAPI.Core.User;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace NSE.Cart.API.Controllers
@@ -38,6 +39,7 @@ namespace NSE.Cart.API.Controllers
             else
                 HandleExistedCart(cart, item);
 
+            ValidateCart(cart);
             if (!ValidOperation()) return CustomResponse();
 
             await SaveData();
@@ -47,12 +49,38 @@ namespace NSE.Cart.API.Controllers
         [HttpPut("cart/{productId}")]
         public async Task<IActionResult> UpdateItem(Guid productId, CartItem item)
         {
+            var cart = await GetCartCustomer();
+            var cartItem = await GetValidCartItem(productId, cart, item);
+            if (cartItem == null) return CustomResponse();
+
+            cart.UpdateUnits(cartItem, item.Amount);
+
+            ValidateCart(cart);
+            if (!ValidOperation()) return CustomResponse();
+
+            _context.CartItems.Update(cartItem);
+            _context.CartCustomer.Update(cart);
+
+            await SaveData();
             return CustomResponse();
         }
 
         [HttpDelete("cart/{productId}")]
         public async Task<IActionResult> RemoveItem(Guid productId)
         {
+            var cart = await GetCartCustomer();
+            var cartItem = await GetValidCartItem(productId, cart);
+            if (cartItem == null) return CustomResponse();
+
+            ValidateCart(cart);
+            if (!ValidOperation()) return CustomResponse();
+
+            cart.RemoveItem(cartItem);
+
+            _context.CartItems.Update(cartItem);
+            _context.CartCustomer.Update(cart);
+
+            await SaveData();
             return CustomResponse();
         }
 
@@ -93,6 +121,40 @@ namespace NSE.Cart.API.Controllers
             }
 
             _context.CartCustomer.Update(cart);
+        }
+
+        private async Task<CartItem> GetValidCartItem(Guid productId, CartCustomer cart, CartItem item = null)
+        {
+            if (item != null && productId != item.ProductId)
+            {
+                AddError("Item does not match what was reported");
+                return null;
+            }
+
+            if (cart == null)
+            {
+                AddError("Cart not found");
+                return null;
+            }
+
+            var cartItem = await _context.CartItems
+                .FirstOrDefaultAsync(i => i.CartId == cart.Id && i.ProductId == productId);
+
+            if (cartItem == null || !cart.CartExistedItem(cartItem))
+            {
+                AddError("The item is not in the cart");
+                return null;
+            }
+
+            return cartItem;
+        }
+
+        private bool ValidateCart(CartCustomer cart)
+        {
+            if (cart.IsValid()) return true;
+
+            cart.ValidationResult.Errors.ToList().ForEach(e => AddError(e.ErrorMessage));
+            return false;
         }
     }
 }

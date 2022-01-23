@@ -37,6 +37,11 @@ namespace NSE.Cart.API.Model
             Amount += units;
         }
 
+        internal void UpdateUnits(int units)
+        {
+            Amount = units;
+        }
+
         internal bool IsValid()
         {
             return new CartItemValidation().Validate(this).IsValid;

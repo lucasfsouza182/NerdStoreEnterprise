@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FluentValidation.Results;
+using Microsoft.EntityFrameworkCore;
 using NSE.Cart.API.Model;
 using System.Linq;
 
@@ -20,6 +21,9 @@ namespace NSE.Cart.API.Data
             foreach (var property in modelBuilder.Model.GetEntityTypes().SelectMany(
                 e => e.GetProperties().Where(p => p.ClrType == typeof(string))))
                 property.SetColumnType("varchar(100)");
+
+
+            modelBuilder.Ignore<ValidationResult>();
 
             modelBuilder.Entity<CartCustomer>()
                 .HasIndex(c => c.CustomerId)
