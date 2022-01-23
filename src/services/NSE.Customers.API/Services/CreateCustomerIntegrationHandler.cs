@@ -24,10 +24,7 @@ namespace NSE.Customers.API.Services
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            _bus.RespondAsync<UserCreatedIntegrationEvent, ResponseMessage>(async request =>
-                await CreateCustomer(request));
-
-            _bus.AdvancedBus.Connected += OnConnect;
+            SetResponder();
 
             return Task.CompletedTask;
         }
