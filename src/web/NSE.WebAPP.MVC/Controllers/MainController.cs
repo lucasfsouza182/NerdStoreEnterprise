@@ -15,6 +15,8 @@ namespace NSE.WebAPP.MVC.Controllers
                 {
                     ModelState.AddModelError(string.Empty, message);
                 }
+
+                return true;
             }
 
             return false;

@@ -7,6 +7,7 @@ using NSE.Customers.API.Data;
 using NSE.Customers.API.Data.Repository;
 using NSE.Customers.API.Models;
 using NSE.Core.Mediator;
+using NSE.Customers.API.Services;
 
 namespace NSE.Customers.API.Configuration
 {

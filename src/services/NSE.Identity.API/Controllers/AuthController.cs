@@ -9,9 +9,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using NSE.Core.Messages.Integration;
 using NSE.Identity.API.Models;
 using NSE.WebAPI.Core.Auth;
 using NSE.WebAPI.Core.Controllers;
+using NSE.MessageBus;
 
 namespace NSE.Identity.API.Controllers
 {
@@ -22,14 +24,17 @@ namespace NSE.Identity.API.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppSettings _appSettings;
+        private readonly IMessageBus _bus;
 
         public AuthController(SignInManager<IdentityUser> signInManager,
                               UserManager<IdentityUser> userManager,
-                              IOptions<AppSettings> appSettings)
+                              IOptions<AppSettings> appSettings,
+                              IMessageBus bus)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _appSettings = appSettings.Value;
+            _bus = bus;
         }
 
         [HttpPost("signin")]
@@ -47,6 +52,14 @@ namespace NSE.Identity.API.Controllers
             var result = await _userManager.CreateAsync(user, registerUser.Password);
             if (result.Succeeded)
             {
+                var customerResult = await CreateCustomer(registerUser);
+
+                if(!customerResult.ValidationResult.IsValid)
+                {
+                    await _userManager.DeleteAsync(user);
+                    return CustomResponse(customerResult.ValidationResult);
+                }
+
                 return CustomResponse(await GenerateJwt(registerUser.Email));
             }
 
@@ -79,6 +92,23 @@ namespace NSE.Identity.API.Controllers
             return CustomResponse();
         }
 
+
+        private async Task<ResponseMessage> CreateCustomer(RegisterUserViewModel registerUser)
+        {
+            var user = await _userManager.FindByEmailAsync(registerUser.Email);
+            var userCreated = new UserCreatedIntegrationEvent(
+                Guid.Parse(user.Id), registerUser.Name, registerUser.Email, registerUser.Cpf);
+
+            try
+            {
+                return await _bus.RequestAsync<UserCreatedIntegrationEvent, ResponseMessage>(userCreated);
+            }
+            catch
+            {
+                await _userManager.DeleteAsync(user);
+                throw;
+            }
+        }
 
         private async Task<LoginResponseViewModel> GenerateJwt(string email)
         {
