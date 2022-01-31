@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using System;
+using System.Text.Json.Serialization;
 
 namespace NSE.Cart.API.Model
 {
@@ -15,6 +16,7 @@ namespace NSE.Cart.API.Model
         public string Image { get; set; }
         public Guid CartId { get; set; }
 
+        [JsonIgnore]
         public CartCustomer CartCustomer { get; set; }
 
         public CartItem()

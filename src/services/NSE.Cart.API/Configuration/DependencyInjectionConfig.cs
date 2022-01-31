@@ -9,7 +9,7 @@ namespace NSE.Cart.API.Configuration
     {
         public static void RegisterServices(this IServiceCollection services)
         {
-            services.AddSingleton<IHttpContextAccessor, IHttpContextAccessor>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IAspNetUser, AspNetUser>();
             services.AddScoped<CartContext>();
         }

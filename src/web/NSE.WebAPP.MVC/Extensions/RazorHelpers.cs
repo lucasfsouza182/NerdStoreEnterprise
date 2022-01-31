@@ -28,5 +28,23 @@ namespace NSE.WebAPP.MVC.Extensions
         {
             return price > 0 ? string.Format(Thread.CurrentThread.CurrentCulture, "{0:C}", price) : "Free";
         }
+
+        public static string UnitsForProduct(this RazorPage page, int units)
+        {
+            return units > 1 ? $"{units} units" : $"{units} unit";
+        }
+
+        public static string SelectOptionsByAmount(this RazorPage page, int unit, int selectedValue = 0)
+        {
+            var sb = new StringBuilder();
+            for (var i = 1; i <= unit; i++)
+            {
+                var selected = "";
+                if (i == selectedValue) selected = "selected";
+                sb.Append($"<option {selected} value='{i}'>{i}</option>");
+            }
+
+            return sb.ToString();
+        }
     }
 }
