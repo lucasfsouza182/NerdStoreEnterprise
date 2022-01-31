@@ -27,16 +27,18 @@
   <ItemGroup>
     <Folder Include="Configuration\" />
     <Folder Include="Views\Auth\" />
-    <Folder Include="Services\" />
-    <Folder Include="Extensions\" />
-    <Folder Include="Views\Shared\Components\" />
     <Folder Include="Views\Shared\Components\Summary\" />
     <Folder Include="Views\Catalog\" />
     <Folder Include="Services\Handlers\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Views\Cart\Index.cshtml" />
+    <None Include="Views\Shared\Components\Cart\Default.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\building blocks\NSE.Core\NSE.Core.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+    <ProjectReference Include="..\..\building blocks\NSE.WebAPI.Core\NSE.WebAPI.Core.csproj" />
   </ItemGroup>
 </Project>

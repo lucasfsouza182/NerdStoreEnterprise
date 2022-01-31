@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 
-namespace NSE.WebAPP.MVC.Extensions
+namespace NSE.WebAPI.Core.User
 {
-    public interface IUser
+    public interface IAspNetUser
     {
         string Name { get; }
         Guid GetUserId();
