@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using NSE.WebAPP.MVC.Models;
+using NSE.Core.Communication;
 
 namespace NSE.WebAPP.MVC.Controllers
 {

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NSE.Bff.Shop.Services;
 using NSE.WebAPI.Core.Controllers;
 using System.Threading.Tasks;
 
@@ -6,6 +7,15 @@ namespace NSE.Bff.Shop.Controllers
 {
     public class CartController : MainController
     {
+        private readonly ICartService _cartService;
+        private readonly ICatalogService _catalogService;
+
+        public CartController(ICartService cartService, ICatalogService catalogService)
+        {
+            _cartService = cartService;
+            _catalogService = catalogService;
+        }
+
         [HttpGet]
         [Route("shop/cart")]
         public async Task<IActionResult> Index()
