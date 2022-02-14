@@ -3,6 +3,7 @@ using System.Linq;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using NSE.Core.Communication;
 
 namespace NSE.WebAPI.Core.Controllers
 {
@@ -43,6 +44,24 @@ namespace NSE.WebAPI.Core.Controllers
             }
 
             return CustomResponse();
+        }
+        protected ActionResult CustomResponse(ResponseResult response)
+        {
+            ResponseHasErrors(response);
+
+            return CustomResponse();
+        }
+
+        protected bool ResponseHasErrors(ResponseResult response)
+        {
+            if (response == null || !response.Errors.Messages.Any()) return false;
+
+            foreach (var message in response.Errors.Messages)
+            {
+                AddError(message);
+            }
+
+            return true;
         }
 
         protected bool ValidOperation()
