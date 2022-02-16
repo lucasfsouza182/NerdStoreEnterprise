@@ -31,7 +31,7 @@ namespace NSE.Bff.Shop.Controllers
         public async Task<int> GetCartCount()
         {
             var qtd = await _cartService.GetCart();
-            return qtd?.Items.Sum(i => i.Amount) ?? 0;
+            return qtd?.Itens.Sum(i => i.Amount) ?? 0;
         }
 
         [HttpPost]
@@ -41,7 +41,7 @@ namespace NSE.Bff.Shop.Controllers
             var product = await _catalogService.GetById(productItem.ProductId);
 
             await ValidateCartItem(product, productItem.Amount, true);
-            if (!ValidOperation()) return View("Index", await _cartService.GetCart());
+            if (!ValidOperation()) return CustomResponse();
 
             productItem.Name = product.Name;
             productItem.Price = product.Price;
@@ -53,20 +53,20 @@ namespace NSE.Bff.Shop.Controllers
         }
 
         [HttpPut]
-        [Route("shop/cart/items/{produtoId}")]
+        [Route("shop/cart/items/{productId}")]
         public async Task<IActionResult> UpdateCartItem(Guid productId, CartItemDTO productItem)
         {
             var product = await _catalogService.GetById(productId);
 
             await ValidateCartItem(product, productItem.Amount);
-            if (!ValidOperation()) return View("Index", await _cartService.GetCart());
+            if (!ValidOperation()) return CustomResponse();
 
             var response = await _cartService.UpdateCartItem(productId, productItem);
             return CustomResponse(response);
         }
 
         [HttpDelete]
-        [Route("shop/cart/items/{produtoId}")]
+        [Route("shop/cart/items/{productId}")]
         public async Task<IActionResult> RemoveCartItem(Guid productId)
         {
             var product = await _catalogService.GetById(productId);
@@ -74,7 +74,7 @@ namespace NSE.Bff.Shop.Controllers
             if (product == null)
             {
                 AddError("Non-existent product!");
-                return View("Index", await _cartService.GetCart());
+                if (!ValidOperation()) return CustomResponse();
             }
 
             var response = await _cartService.RemoveCartItem(productId);
@@ -88,15 +88,15 @@ namespace NSE.Bff.Shop.Controllers
             if (amount < 1) AddError($"Choose at least one product unit {product.Name}");
 
             var cart = await _cartService.GetCart();
-            var cartItem = cart.Items.FirstOrDefault(p => p.ProductId == product.Id);
+            var cartItem = cart.Itens.FirstOrDefault(p => p.ProductId == product.Id);
 
-            if (cartItem != null && addProduct && cartItem.Amount + amount > product.AmountStock)
+            if (cartItem != null && addProduct && cartItem.Amount + amount > product.QuantityStock)
             {
-                AddError($"The product {product.Name} has {product.AmountStock} units in stock, you selected {amount}");
+                AddError($"The product {product.Name} has {product.QuantityStock} units in stock, you selected {amount}");
                 return;
             }
 
-            if (amount > product.AmountStock) AddError($"The product {product.Name} has {product.AmountStock} units in stock, you selected {amount}");
+            if (amount > product.QuantityStock) AddError($"The product {product.Name} has {product.QuantityStock} units in stock, you selected {amount}");
         }
     }
 }

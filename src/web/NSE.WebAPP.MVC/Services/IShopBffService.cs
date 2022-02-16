@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 
 namespace NSE.WebAPP.MVC.Services
 {
-    public interface ICartService
+    public interface IShopBffService
     {
         Task<CartViewModel> GetCart();
-        Task<ResponseResult> AddCartItem(ProductItemViewModel product);
-        Task<ResponseResult> UpdateCartItem(Guid productId, ProductItemViewModel product);
+        Task<int> GetCountCart();
+        Task<ResponseResult> AddCartItem(CartItemViewModel product);
+        Task<ResponseResult> UpdateCartItem(Guid productId, CartItemViewModel product);
         Task<ResponseResult> RemoveCartItem(Guid productId);
     }
 }

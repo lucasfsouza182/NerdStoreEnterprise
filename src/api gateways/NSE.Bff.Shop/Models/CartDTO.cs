@@ -6,6 +6,6 @@ namespace NSE.Bff.Shop.Models
     {
         public decimal TotalValue { get; set; }
         public decimal Discount { get; set; }
-        public List<CartItemDTO> Items { get; set; } = new List<CartItemDTO>();
+        public List<CartItemDTO> Itens { get; set; } = new List<CartItemDTO>();
     }
 }

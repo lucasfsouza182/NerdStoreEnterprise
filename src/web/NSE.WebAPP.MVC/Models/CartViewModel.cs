@@ -6,10 +6,10 @@ namespace NSE.WebAPP.MVC.Models
     public class CartViewModel
     {
         public decimal TotalValue { get; set; }
-        public List<ProductItemViewModel> Itens { get; set; } = new List<ProductItemViewModel>();
+        public List<CartItemViewModel> Itens { get; set; } = new List<CartItemViewModel>();
     }
 
-    public class ProductItemViewModel
+    public class CartItemViewModel
     {
         public Guid ProductId { get; set; }
         public string Name { get; set; }

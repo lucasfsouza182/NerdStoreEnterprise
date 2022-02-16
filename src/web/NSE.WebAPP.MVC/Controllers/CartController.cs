@@ -10,38 +10,26 @@ namespace NSE.WebAPP.MVC.Controllers
     [Authorize]
     public class CartController : MainController
     {
-        private readonly ICartService _cartService;
-        private readonly ICatalogService _catalogService;
+        private readonly IShopBffService _shopBffService;
 
-        public CartController(ICartService cartService,
-                              ICatalogService catalogService)
+        public CartController(IShopBffService shopBffService)
         {
-            _cartService = cartService;
-            _catalogService = catalogService;
+            _shopBffService = shopBffService;
         }
 
         [Route("cart")]
         public async Task<IActionResult> Index()
         {
-            return View(await _cartService.GetCart());
+            return View(await _shopBffService.GetCart());
         }
 
         [HttpPost]
         [Route("cart/add-item")]
-        public async Task<IActionResult> AddCartItem(ProductItemViewModel productItem)
+        public async Task<IActionResult> AddCartItem(CartItemViewModel productItem)
         {
-            var product = await _catalogService.GetById(productItem.ProductId);
+            var response = await _shopBffService.AddCartItem(productItem);
 
-            ValidateCartItem(product, productItem.Amount);
-            if (!ValidOperation()) return View("Index", await _cartService.GetCart());
-
-            productItem.Name = product.Name;
-            productItem.Price = product.Price;
-            productItem.Image = product.Image;
-
-            var response = await _cartService.AddCartItem(productItem);
-
-            if (ResponseHasErrors(response)) return View("Index", await _cartService.GetCart());
+            if (ResponseHasErrors(response)) return View("Index", await _shopBffService.GetCart());
 
             return RedirectToAction("Index");
         }
@@ -50,15 +38,10 @@ namespace NSE.WebAPP.MVC.Controllers
         [Route("cart/update-item")]
         public async Task<IActionResult> UpdateCartItem(Guid productId, int amount)
         {
-            var product = await _catalogService.GetById(productId);
+            var productItem = new CartItemViewModel { ProductId = productId, Amount = amount };
+            var response = await _shopBffService.UpdateCartItem(productId, productItem);
 
-            ValidateCartItem(product, amount);
-            if (!ValidOperation()) return View("Index", await _cartService.GetCart());
-
-            var productItem = new ProductItemViewModel { ProductId = productId, Amount = amount };
-            var response = await _cartService.UpdateCartItem(productId, productItem);
-
-            if (ResponseHasErrors(response)) return View("Index", await _cartService.GetCart());
+            if (ResponseHasErrors(response)) return View("Index", await _shopBffService.GetCart());
 
             return RedirectToAction("Index");
         }
@@ -67,26 +50,11 @@ namespace NSE.WebAPP.MVC.Controllers
         [Route("cart/remove-item")]
         public async Task<IActionResult> RemoveCartItem(Guid productId)
         {
-            var product = await _catalogService.GetById(productId);
+            var response = await _shopBffService.RemoveCartItem(productId);
 
-            if (product == null)
-            {
-                AddValidationError("Non-existent product!");
-                return View("Index", await _cartService.GetCart());
-            }
-
-            var response = await _cartService.RemoveCartItem(productId);
-
-            if (ResponseHasErrors(response)) return View("Index", await _cartService.GetCart());
+            if (ResponseHasErrors(response)) return View("Index", await _shopBffService.GetCart());
 
             return RedirectToAction("Index");
-        }
-
-        private void ValidateCartItem(ProductViewModel product, int amount)
-        {
-            if (product == null) AddValidationError("Non-existent product!");
-            if (amount < 1) AddValidationError($"Choose at least one product unit {product.Name}");
-            if (amount > product.QuantityStock) AddValidationError($"The product {product.Name} has {product.QuantityStock} units in stock, you selected {amount}");
         }
     }
 }
