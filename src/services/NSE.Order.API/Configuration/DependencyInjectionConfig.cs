@@ -1,5 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using NSE.Core.Mediator;
+using NSE.Order.Domain.Vouchers;
+using NSE.Order.Infra.Data;
+using NSE.Order.Infra.Data.Repository;
 using NSE.WebAPI.Core.User;
 
 namespace NSE.Order.API.Configuration
@@ -11,6 +15,13 @@ namespace NSE.Order.API.Configuration
             // API
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IAspNetUser, AspNetUser>();
+
+            // Application
+            services.AddScoped<IMediatorHandler, MediatorHandler>();
+
+            // Data
+            services.AddScoped<IVoucherRepository, VoucherRepository>();
+            services.AddScoped<OrderContext>();
         }
     }
 }

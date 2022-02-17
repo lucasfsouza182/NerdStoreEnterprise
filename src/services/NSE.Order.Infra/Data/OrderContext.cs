@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using NSE.Core.Data;
 using NSE.Core.Mediator;
 using NSE.Core.Messages;
+using NSE.Order.Domain.Vouchers;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,6 +18,8 @@ namespace NSE.Order.Infra.Data
         {
             _mediatorHandler = mediatorHandler;
         }
+
+        public DbSet<Voucher> Vouchers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
