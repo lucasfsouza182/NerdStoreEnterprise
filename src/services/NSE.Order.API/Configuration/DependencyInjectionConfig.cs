@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using NSE.Core.Mediator;
+using NSE.Order.API.Application.Queries;
 using NSE.Order.Domain.Vouchers;
 using NSE.Order.Infra.Data;
 using NSE.Order.Infra.Data.Repository;
@@ -18,6 +19,7 @@ namespace NSE.Order.API.Configuration
 
             // Application
             services.AddScoped<IMediatorHandler, MediatorHandler>();
+            services.AddScoped<IVoucherQueries, VoucherQueries>();
 
             // Data
             services.AddScoped<IVoucherRepository, VoucherRepository>();

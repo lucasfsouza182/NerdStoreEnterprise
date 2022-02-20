@@ -14,6 +14,7 @@ namespace NSE.Bff.Shop.Services
         Task<ResponseResult> AddCartItem(CartItemDTO product);
         Task<ResponseResult> UpdateCartItem(Guid productId, CartItemDTO carrinho);
         Task<ResponseResult> RemoveCartItem(Guid productId);
+        Task<ResponseResult> ApplyVoucherCart(VoucherDTO voucher);
     }
 
     public class CartService : Service, ICartService
@@ -64,6 +65,17 @@ namespace NSE.Bff.Shop.Services
             if (!HandleResponseErrors(response)) return await DeserializeResponseObject<ResponseResult>(response);
 
             return ReturnOk();
-        }   
+        }
+
+        public async Task<ResponseResult> ApplyVoucherCart(VoucherDTO voucher)
+        {
+            var itemContent = GetContent(voucher);
+
+            var response = await _httpClient.PostAsync("/cart/apply-voucher/", itemContent);
+
+            if (!HandleResponseErrors(response)) return await DeserializeResponseObject<ResponseResult>(response);
+
+            return ReturnOk();
+        }
     }
 }
