@@ -1,4 +1,5 @@
 ﻿using NSE.Core.DomainObjects;
+using NSE.Order.Domain.Vouchers.Specs;
 using System;
 
 namespace NSE.Order.Domain.Vouchers
@@ -15,5 +16,21 @@ namespace NSE.Order.Domain.Vouchers
         public DateTime ExpirationDate { get; private set; }
         public bool Active { get; private set; }
         public bool Used { get; private set; }
+
+        public bool IsValidToBeUsed()
+        {
+            return new VoucherActiveSpecification()
+                .And(new VoucherDataSpecification())
+                .And(new VoucherQuantitySpecification())
+                .IsSatisfiedBy(this);
+        }
+
+        public void SetAsUsed()
+        {
+            Active = false;
+            Used = true;
+            Quantity = 0;
+            UsagedDate = DateTime.Now;
+        }
     }
 }
