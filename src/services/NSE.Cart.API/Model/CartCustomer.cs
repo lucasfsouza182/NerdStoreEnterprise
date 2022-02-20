@@ -17,6 +17,11 @@ namespace NSE.Cart.API.Model
 
         public ValidationResult ValidationResult { get; set; }
 
+        public bool VoucherUsed { get; set; }
+        public decimal Discount { get; set; }
+
+        public Voucher Voucher { get; set; }
+
         public CartCustomer(Guid customerId)
         {
             Id = Guid.NewGuid();
@@ -26,10 +31,46 @@ namespace NSE.Cart.API.Model
         // EF
         public CartCustomer() { }
 
+        public void ApplyVoucher(Voucher voucher)
+        {
+            Voucher = voucher;
+            VoucherUsed = true;
+            CalculateValueCart();
+        }
+
 
         internal void CalculateValueCart()
         {
             TotalValue = Itens.Sum(p => p.CalculateValue());
+            CalculateTotalValueDiscount();
+        }
+
+        private void CalculateTotalValueDiscount()
+        {
+            if (!VoucherUsed) return;
+
+            decimal discount = 0;
+            var value = TotalValue;
+
+            if (Voucher.TypeDiscount == TypeDiscountVoucher.Percentage)
+            {
+                if (Voucher.Percentage.HasValue)
+                {
+                    discount = (value * Voucher.Percentage.Value) / 100;
+                    value -= discount;
+                }
+            }
+            else
+            {
+                if (Voucher.ValueDiscount.HasValue)
+                {
+                    discount = Voucher.ValueDiscount.Value;
+                    value -= discount;
+                }
+            }
+
+            TotalValue = value < 0 ? 0 : value;
+            Discount = discount;
         }
 
         internal bool CartExistedItem(CartItem item)
