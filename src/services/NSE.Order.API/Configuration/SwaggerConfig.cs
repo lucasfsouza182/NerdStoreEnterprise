@@ -13,7 +13,7 @@ namespace NSE.Order.API.Configuration
             {
                 c.SwaggerDoc("v1", new OpenApiInfo()
                 {
-                    Title = "NerdStore Enterprise Pedidos API",
+                    Title = "NerdStore Enterprise Order API",
                     Description = "Esta API faz parte do curso ASP.NET Core Enterprise Applications.",
                     Contact = new OpenApiContact() { Name = "Lucas Ferreira", Email = "lucasfsouza182@gmail.com" },
                     License = new OpenApiLicense() { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }

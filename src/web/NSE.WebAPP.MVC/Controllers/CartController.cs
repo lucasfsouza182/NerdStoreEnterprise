@@ -56,5 +56,16 @@ namespace NSE.WebAPP.MVC.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        [Route("cart/apply-voucher")]
+        public async Task<IActionResult> ApplyVoucher(string voucherCode)
+        {
+            var resposta = await _shopBffService.ApplyVoucherCart(voucherCode);
+
+            if (ResponseHasErrors(resposta)) return View("Index", await _shopBffService.GetCart());
+
+            return RedirectToAction("Index");
+        }
     }
 }
